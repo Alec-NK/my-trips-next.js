@@ -1,17 +1,17 @@
-import PageTemplate, { PageTemplateProps } from 'templates/Pages'
+import PlacesTemplate, { PlacesTemplateProps } from 'templates/Places'
 import client from 'graphql/client'
-import { GET_PAGES, GET_PAGE_BY_SLUG } from 'graphql/queries'
+import { GET_PLACES, GET_PLACE_BY_SLUG } from 'graphql/queries'
 import { useRouter } from 'next/dist/client/router'
 import { GetStaticProps } from 'next'
-import { GetPagesQuery, GetPageBySlugQuery } from 'graphql/generated/graphql'
+import { GetPlacesQuery, GetPlaceBySlugQuery } from 'graphql/generated/graphql'
 
-export default function Page({ heading, body }: PageTemplateProps) {
+export default function Place({ place }: PlacesTemplateProps) {
   const router = useRouter()
 
   // retorna um loading, qualquer coisa enquanto tá sendo criado
   if (router.isFallback) return null
 
-  return <PageTemplate heading={heading} body={body} />
+  return <PlacesTemplate place={place} />
 }
 
 // getStaticPaths => Serve para gerar as URLs em build time {/about, /trips/petrópolis}
@@ -21,9 +21,11 @@ export default function Page({ heading, body }: PageTemplateProps) {
 client) */
 
 export async function getStaticPaths() {
-  const { pages } = await client.request<GetPagesQuery>(GET_PAGES, { first: 3 })
+  const { places } = await client.request<GetPlacesQuery>(GET_PLACES, {
+    first: 3
+  })
 
-  const paths = pages.map(({ slug }) => ({
+  const paths = places.map(({ slug }) => ({
     params: { slug }
   }))
 
@@ -31,16 +33,18 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { page } = await client.request<GetPageBySlugQuery>(GET_PAGE_BY_SLUG, {
-    slug: `${params.slug}`
-  })
+  const { place } = await client.request<GetPlaceBySlugQuery>(
+    GET_PLACE_BY_SLUG,
+    {
+      slug: `${params.slug}`
+    }
+  )
 
-  if (!page) return { notFound: true }
+  if (!place) return { notFound: true }
 
   return {
     props: {
-      heading: page.heading,
-      body: page.body.html
+      place
     }
   }
 }
