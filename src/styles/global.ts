@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
  *{
-   margin: 0;
+      margin: 0;
    padding: 0;
    box-sizing: border-box;
  }
@@ -40,6 +40,7 @@ const GlobalStyle = createGlobalStyle`
  }
 
  a {
+   font-size: 1.3rem;
    color: var(--highlight);
  }
 `
