@@ -1,6 +1,8 @@
 import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import { useRouter } from 'next/dist/client/router';
 
+import * as S from './styles'
+
 type Place = {
   id: string
   name: string
@@ -37,32 +39,39 @@ const Map = ({ places }: MapProps) => {
   const router = useRouter()
 
   return (
-    <MapContainer
-      center={[0, 0]}
-      zoom={3}
-      style={{ height: '100%', width: '100%' }}
-    >
-      <CustomTileLayer />
+    <S.MapWrapper>
+      <MapContainer
+        center={[0, 0]}
+        zoom={2}
+        minZoom={2}
+        maxBounds={[
+          [-180, 180],
+          [180, -180]
+        ]}
+        style={{ height: '100%', width: '100%' }}
+      >
+        <CustomTileLayer />
 
-      {places.map(({ id, slug, name, location }) => {
-        // '?' representa que pode ou não existir
-        const { latitude, longitude } = location
+        {places.map(({ id, slug, name, location }) => {
+          // '?' representa que pode ou não existir
+          const { latitude, longitude } = location
 
-        return (
-          /* Sempre que tiver uma iteração(repetição) deve ter uma key para identificar */
-          <Marker
-            key={`place-${id}`}
-            position={[latitude, longitude]}
-            title={name}
-            eventHandlers={{
-              click: () => {
-                router.push(`/place/${slug}`)
-              },
-            }}
-          />
-        )
-      })}
-    </MapContainer>
+          return (
+            /* Sempre que tiver uma iteração(repetição) deve ter uma key para identificar */
+            <Marker
+              key={`place-${id}`}
+              position={[latitude, longitude]}
+              title={name}
+              eventHandlers={{
+                click: () => {
+                  router.push(`/place/${slug}`)
+                },
+              }}
+            />
+          )
+        })}
+      </MapContainer>
+    </S.MapWrapper>
   )
 }
 
