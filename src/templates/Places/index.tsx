@@ -1,12 +1,12 @@
 import Image from 'next/image'
 
-import LinkWrapper from "components/LinkWrapper";
+import LinkWrapper from 'components/LinkWrapper'
 import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline'
 import * as S from './styles'
 
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/dist/client/router'
 
-import { NextSeo } from 'next-seo';
+import { NextSeo } from 'next-seo'
 
 type ImageProps = {
   url: string
@@ -28,7 +28,7 @@ export type PlacesTemplateProps = {
 export default function PlacesTemplate({ place }: PlacesTemplateProps) {
   const router = useRouter()
 
-  if(router.isFallback) return null
+  if (router.isFallback) return null
 
   return (
     <>
@@ -44,7 +44,9 @@ export default function PlacesTemplate({ place }: PlacesTemplateProps) {
         <S.Container>
           <S.Heading>{place.name}</S.Heading>
 
-          <S.Body dangerouslySetInnerHTML={{ __html: place.description.html }} />
+          <S.Body
+            dangerouslySetInnerHTML={{ __html: place.description.html }}
+          />
 
           <S.Gallery>
             {place.gallery.map((image, index) => (

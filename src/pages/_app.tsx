@@ -4,7 +4,7 @@ import Head from 'next/head'
 import NextNprogress from 'nextjs-progressbar'
 
 import SEO from '../../next-seo.config'
-import { DefaultSeo } from 'next-seo';
+import { DefaultSeo } from 'next-seo'
 
 import GlobalStyles from 'styles/global'
 

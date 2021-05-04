@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     slug: `${params.slug}`
   })
 
-    if (!page) return { notFound: true }
+  if (!page) return { notFound: true }
 
   return {
     props: {

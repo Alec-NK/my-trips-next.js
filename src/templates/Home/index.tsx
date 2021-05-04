@@ -1,4 +1,4 @@
-import { NextSeo } from 'next-seo';
+import { NextSeo } from 'next-seo'
 
 import dynamic from 'next/dynamic'
 import { InfoOutline } from '@styled-icons/evaicons-outline/InfoOutline'

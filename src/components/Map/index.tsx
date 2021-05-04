@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, MapConsumer } from 'react-leaflet'
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/dist/client/router'
 
 import L from 'leaflet'
 import * as S from './styles'
@@ -65,7 +65,7 @@ const Map = ({ places }: MapProps) => {
               document.documentElement.clientWidth ||
               document.body.clientWidth
 
-            if(width < 768) {
+            if (width < 768) {
               map.setMinZoom(2)
             }
 
@@ -88,7 +88,7 @@ const Map = ({ places }: MapProps) => {
               eventHandlers={{
                 click: () => {
                   router.push(`/place/${slug}`)
-                },
+                }
               }}
             />
           )
